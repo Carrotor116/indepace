@@ -124,3 +124,8 @@ export PATH=$PATH:$indepace_home/.bin:$indepace_home/.local/bin
 
 export HOME=$indepace_home
 export HISTFILE=$indepace_home/.bash_history
+
+if [ -f $indepace_home/.alias ];then
+  source $indepace_home/.alias
+fi
+
