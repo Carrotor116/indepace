@@ -1,0 +1,31 @@
+#!/bin/bash 
+
+if [ $# != 1 ];then
+    echo -e "Usage: \n  $0 [name]\n\nPositional arguments:\n  name                  the name of independent space\n"
+    exit
+fi
+
+if [ `whoami` != "root" ];then
+    echo "permission deny, please run with sudo"
+    exit
+fi
+
+base_path=$(dirname $(readlink -f $0)) # parent path for this script, that is $INDEPACE_HOME/.bin
+p1=${base_path%/*} # path for $INDEPACE_HOME
+
+if [ ! -L "/usr/local/bin/"$1 -a ! -L "/usr/local/bin/"$1 ]; then
+    ln -s $p1'/.bin/start_indepace' '/usr/local/bin/'$1
+else 
+    echo -n "Warnning: /usr/local/bin/$1 is exists, continue with backup? (y/n)"
+    read op
+    if [ "$op" == "y" ] || [ "$op" == "Y" ];then 
+       eval "mv /usr/local/bin/"$1" /usr/local/bin/"$1".back"
+       echo "backup "$1" to "$1".back and create new nonu"
+       ln -f -s $p1'/.bin/start_indepace' '/usr/local/bin/'$1
+    else 
+       echo "installation cancel..."
+       exit
+    fi 
+fi
+# write $INDEPACE_USER to $p1/.bashrc
+sed -i 's/^export INDEPACE_USER=.*$/export INDEPACE_USER='$1'/' $p1/.bashrc

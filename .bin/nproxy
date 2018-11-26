@@ -1,0 +1,60 @@
+#!/bin/bash
+
+ip=172.17.174.217
+port=2333
+http_proxy=http://$ip:$port
+https_proxy=https://$ip:$port
+
+
+function main(){
+  while getopts "g:" arg 2>/dev/null; do 
+      case $arg in 
+          g)
+              set_git $OPTARG ;;
+          *)
+              echo -e "$HELP"
+              return ;;
+      esac
+  done 
+}
+
+function set_git(){
+    if [ "$1" == "on" ]; then 
+        git config --global http.proxy $http_proxy
+        git config --global https.proxy $https_proxy
+    elif [ "$1" == "ls" ] || [ "$1" == "list" ] ;then
+        git config --global -l |  grep --color=never proxy
+    elif [ "$1" == "off" ]; then 
+        git config --global --unset http.proxy
+        git config --global --unset https.proxy
+    else 
+        echo -e "$HELP"
+    fi 
+}
+
+function set_shell(){
+    if [ "$1" == "on" ]; then 
+        export http_proxy=$ip:$port
+        export https_proxy=$ip:$port
+    elif [ "$1" == "ls" ] || [ "$1" == "list" ] ;then
+        echo $http_proxy
+        echo $https_proxy
+    elif [ "$1" == "off" ]; then 
+        export http_proxy=$ip:$port
+        export https_proxy=$ip:$port
+    else 
+        echo -e "$HELP"
+    fi 
+}
+
+HELP="Usage:\n  nproxy [OPTION]\n  set proxy for program\n
+OPTION
+  -g OPT                    set proxy for git
+                            OPT is 'on', 'off', 'ls' or 'list'
+"
+
+if [ $# == 0 ];then 
+  echo -e "$HELP"
+else
+  main $@
+fi

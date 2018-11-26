@@ -1,0 +1,7 @@
+#!/bin/sh
+
+base_path=$(dirname $(readlink -f $0)) # the path of this script $INDEPACE_HOME/.bin/
+home=${base_path%/*} # the path of $INDEPACE_HOME
+
+exec bash --init-file $home/.bashrc 
+
