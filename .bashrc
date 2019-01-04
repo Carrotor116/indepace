@@ -120,7 +120,7 @@ export INDEPACE_USER=nonu
 bashrc_path=${BASH_SOURCE[0]} # the absolute path of current file (.bashrc), contain file name 
 indepace_home=$(dirname $bashrc_path) # the absolute path of evnfiles
 export PS1="(\[\e[36;1m\]$INDEPACE_USER\[\e[0m\]\[\e[0m\])[\[\e[31;1m\]\u\[\e[0m\]\[\e[0m\]@\h \W]\$ "
-export PATH=$PATH:$indepace_home/.bin:$indepace_home/.local/bin
+export PATH=$indepace_home/.bin:$indepace_home/.local/bin:$PATH
 
 export HOME=$indepace_home
 export HISTFILE=$indepace_home/.bash_history
