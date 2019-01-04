@@ -20,7 +20,7 @@ else
     read op
     if [ "$op" == "y" ] || [ "$op" == "Y" ];then 
        eval "mv /usr/local/bin/"$1" /usr/local/bin/"$1".back"
-       echo "backup "$1" to "$1".back and create new nonu"
+       echo "backup "$1" to "$1".back and create new indepace"
        ln -f -s $p1'/.bin/start_indepace' '/usr/local/bin/'$1
     else 
        echo "installation cancel..."
