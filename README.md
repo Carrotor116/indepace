@@ -1,4 +1,4 @@
-# envfiles
+# indepace 
 Creating a independent workspace in a dir. 
 
 You can store scripts to `.bin/` and configure `.bashrc` file to make a own independent shell space  when login in a linux while you shouldn't create a LINUX ACCOUNT for youself.
@@ -16,5 +16,3 @@ $ nonu
 ```
 
 
-## Some command in the shell of workspace 
-* `nproxy`, set proxy for one program
